@@ -219,13 +219,9 @@ static void installCortexNativeFullscreenPatch(void)
                 return nil;
             }
 
-            if ([event.charactersIgnoringModifiers isEqualToString:@"\e"]) {
-                NSWindow *window = findCortexWindow();
-                if (isNativeFullscreen(window)) {
-                    invokeNativeFullscreenToggle(window);
-                    return nil;
-                }
-            }
+            if ([event.charactersIgnoringModifiers isEqualToString:@"\e"]
+                && isNativeFullscreen(findCortexWindow()))
+                return nil;
 
             return event;
         }];

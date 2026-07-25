@@ -7,7 +7,7 @@ JUCE window disables:
 - a dedicated fullscreen Space;
 - desktop switching with the trackpad or Control-Left/Right;
 - the menu bar when the pointer reaches the top;
-- Escape, Control-Command-F, and the green window button to leave fullscreen;
+- Control-Command-F and the green window button to leave fullscreen;
 - use of the display area around a MacBook camera housing.
 
 The vendor application is never edited. The script makes a separate
@@ -57,6 +57,9 @@ Xcode or the Xcode Command Line Tools must be installed.
 Because this is a binary modification, re-run the patch after every Cortex
 Control update. If Neural DSP changes framework, signing, or executable layout,
 review the script before forcing it.
+
+Escape is consumed while Cortex Control is fullscreen, so it does not leave
+the fullscreen Space. Outside fullscreen, Escape remains available to the app.
 
 ## Signing and another Mac
 
