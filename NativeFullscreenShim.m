@@ -43,6 +43,11 @@ static BOOL isNativeFullscreen(NSWindow *window)
     return (window.styleMask & NSWindowStyleMaskFullScreen) != 0;
 }
 
+static void forwardEscapeToCortex(NSWindow *window, NSEvent *event)
+{
+    [window.contentView performKeyEquivalent:event];
+}
+
 static NSSize passthroughResize(id self, SEL command, NSWindow *window,
                                 NSSize proposedSize)
 {
@@ -219,9 +224,13 @@ static void installCortexNativeFullscreenPatch(void)
                 return nil;
             }
 
-            if ([event.charactersIgnoringModifiers isEqualToString:@"\e"]
-                && isNativeFullscreen(findCortexWindow()))
-                return nil;
+            if ([event.charactersIgnoringModifiers isEqualToString:@"\e"]) {
+                NSWindow *window = findCortexWindow();
+                if (isNativeFullscreen(window)) {
+                    forwardEscapeToCortex(window, event);
+                    return nil;
+                }
+            }
 
             return event;
         }];

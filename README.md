@@ -58,8 +58,9 @@ Because this is a binary modification, re-run the patch after every Cortex
 Control update. If Neural DSP changes framework, signing, or executable layout,
 review the script before forcing it.
 
-Escape is consumed while Cortex Control is fullscreen, so it does not leave
-the fullscreen Space. Outside fullscreen, Escape remains available to the app.
+While Cortex Control is fullscreen, Escape is forwarded through JUCE's special
+key handler and then withheld from AppKit. Cortex still receives the key, but
+macOS does not use the same event to leave the fullscreen Space.
 
 ## Signing and another Mac
 

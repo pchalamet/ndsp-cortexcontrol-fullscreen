@@ -130,4 +130,4 @@ echo "Installed Cortex Control Patched $VERSION:"
 echo "  $TARGET_APP"
 echo
 echo "Open it normally, then use the green button or Control-Command-F"
-echo "to enter and leave fullscreen. Escape will not exit fullscreen."
+echo "to enter and leave fullscreen. Escape reaches Cortex without exiting."
