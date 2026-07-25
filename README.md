@@ -13,6 +13,21 @@ JUCE window disables:
 The vendor application is never edited. The script makes a separate
 `Cortex Control Patched.app`.
 
+## Tested configuration
+
+This patch has been tested on macOS running on Apple Silicon with Cortex
+Control 4.0.1. Other macOS versions, processor architectures, and Cortex
+Control releases may behave differently.
+
+## Disclaimer
+
+This is an unofficial modification and is not supported, endorsed, or
+warranted in any way by Neural DSP or Apple. It is provided as-is, without any
+guarantee of functionality, compatibility, or safety. Use it entirely at your
+own risk. The authors and contributors accept no responsibility for data loss,
+instability, application or device malfunction, or any other issue resulting
+from its use.
+
 ## After installing a Cortex Control update
 
 Quit both copies of Cortex Control, then run:
