@@ -30,10 +30,11 @@ from its use.
 
 ## After installing a Cortex Control update
 
-Quit both copies of Cortex Control, then run:
+Quit both copies of Cortex Control, open a terminal in this repository, then
+run:
 
 ```sh
-~/src/neuraldsp/apply-cortex-fullscreen.sh
+./apply-cortex-fullscreen.sh
 ```
 
 The defaults are:
@@ -49,14 +50,14 @@ beside the app before installing the new copy.
 Custom locations can be supplied as the first and second arguments:
 
 ```sh
-~/src/neuraldsp/apply-cortex-fullscreen.sh \
+./apply-cortex-fullscreen.sh \
   "/path/to/Cortex Control.app" \
   "/path/to/Cortex Control Patched.app"
 ```
 
 The first run creates a local Python virtual environment and installs LIEF,
-which is used to add the shim library to both slices of the Mach-O executable.
-Xcode or the Xcode Command Line Tools must be installed.
+which is used to add the shim library to every supported slice of the Mach-O
+executable. Xcode or the Xcode Command Line Tools must be installed.
 
 ## What the patch changes
 
@@ -77,7 +78,7 @@ While Cortex Control is fullscreen, Escape is forwarded through JUCE's special
 key handler and then withheld from AppKit. Cortex still receives the key, but
 macOS does not use the same event to leave the fullscreen Space.
 
-## Signing and another Mac
+## Ad-hoc signing
 
 The patch uses:
 
@@ -87,21 +88,3 @@ codesign --sign -
 
 The `-` means **ad-hoc signing**. It does not use a Developer ID certificate,
 Apple account, private key, or any identity from your Keychain.
-
-The resulting application and shim are universal (`arm64` and `x86_64` when
-the vendor executable contains both), so the patched app can be copied to
-another compatible Mac. The other Mac may quarantine the modified app because
-it is not vendor-notarized. The most reliable option is to copy this directory
-and run the patch there against a freshly installed official Cortex Control.
-
-If copying the already-patched app, place it in `/Applications/Neural DSP/`,
-then, only if macOS quarantined that copy, run:
-
-```sh
-xattr -dr com.apple.quarantine \
-  "/Applications/Neural DSP/Cortex Control Patched.app"
-codesign --verify --deep --strict --verbose=2 \
-  "/Applications/Neural DSP/Cortex Control Patched.app"
-```
-
-Do not remove quarantine from unrelated software.
